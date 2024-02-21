@@ -1,4 +1,4 @@
-import { capitalise, reverseString } from '../src/functionsGalore.js';
+import { capitalise, reverseString, calculator } from '../src/functionsGalore.js';
 
 describe('capitalise function tests', () => {
     describe('type checking', () => {
@@ -55,5 +55,54 @@ describe('reverseString function tests', () => {
             const emptyStringInput = '';
             expect(() => reverseString(emptyStringInput)).toThrow();
         })
+    });
+})
+
+describe('calculate function tests', () => {
+    describe('type checking', () => {
+        it('only accepts number inputs', () => {
+            const numberInput = 1;
+            const stringInput = 'hi!';
+            const arrayInput = ['yo', 'hello', 'bonjour'];
+
+            expect(() => calculator.add(numberInput, numberInput)).not.toThrow();
+            expect(() => calculator.add(stringInput, stringInput)).toThrow('number');
+            expect(() => calculator.add(arrayInput, arrayInput)).toThrow('number');
+        });
+        it('accepts exactly two inputs', () => {
+            const numberInput = 1;
+
+            expect(() => calculator.add(numberInput, numberInput)).not.toThrow();
+            expect(() => calculator.add()).toThrow('exactly two');
+            expect(() => calculator.add(numberInput)).toThrow('exactly two');
+            expect(() => calculator.add(numberInput, numberInput, numberInput)).toThrow('exactly two');
+        });
+    });
+
+    describe('function behaviour checking', () => {
+        it('addition operation', () => {
+            const firstNum = 5;
+            const secondNum = 5;
+
+            expect(calculator.add(firstNum, secondNum)).toBe(10);
+        });
+        it('subtraction operation', () => {
+            const firstNum = 5;
+            const secondNum = 5;
+
+            expect(calculator.subtract(firstNum, secondNum)).toBe(0);
+        });
+        it('division operation', () => {
+            const firstNum = 5;
+            const secondNum = 5;
+
+            expect(calculator.divide(firstNum, secondNum)).toBe(1);
+        });
+        it('multiplication operation', () => {
+            const firstNum = 5;
+            const secondNum = 5;
+
+            expect(calculator.multiply(firstNum, secondNum)).toBe(25);
+        });
     });
 })
