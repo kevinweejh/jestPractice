@@ -1,4 +1,4 @@
-import { capitalise, reverseString, calculator, caesarCipher } from '../src/functionsGalore.js';
+import { capitalise, reverseString, calculator, caesarCipher, analyzeArray } from '../src/functionsGalore.js';
 
 describe('capitalise function tests', () => {
     describe('type checking', () => {
@@ -146,5 +146,54 @@ describe('caesarCipher function tests', () => {
 
             expect(caesarCipher(punctuatedInput, shiftFactor)).toBe('.efuitx!');
         })
+    });
+})
+
+describe('analyzeArray function tests', () => {
+    describe('type checking', () => {
+        it('only accepts array inputs', () => {
+            const stringInput = 'hi!';
+            const numberInput = 1;
+            const arrayInput = [1,2,3];
+
+            expect(() => analyzeArray(stringInput)).toThrow();
+            expect(() => analyzeArray(numberInput)).toThrow();
+            expect(() => analyzeArray(arrayInput)).not.toThrow();
+        });
+        it('only accepts number arrays', () => {
+            const stringArrayInput = ['yo', 'hello', 'bonjour'];
+            const numberArrayInput = [1,8,3,4,2,6];
+
+            expect(() => analyzeArray(stringArrayInput)).toThrow();
+            expect(() => analyzeArray(numberArrayInput)).not.toThrow();
+        });
+    });
+
+    describe('function behaviour checking', () => {
+        it('handles empty array correctly', () => {
+            const emptyArrayInput = [];
+            expect(() => analyzeArray(emptyArrayInput)).toThrow('non-empty');
+        })
+        it('handles negative numbers', () => {
+            const numberArray = [-1, 1, 2, 2];
+
+            const matchedObj = {
+                "average": 1,
+                "min": -1,
+                "max": 2,
+                "length": 4 
+            };
+            expect(analyzeArray(numberArray)).toMatchObject(matchedObj);
+        });
+        it('handles non-integer average', () => {
+            const nonIntegerAverageArray = [-1, 1, 2, 3];
+            
+            expect(analyzeArray(nonIntegerAverageArray).average).toBe(1.25);
+        });
+        it('handles 0 value average', () => {
+            const averageZeroArray = [-1, 1, -2, 2];
+            
+            expect(analyzeArray(averageZeroArray).average).toBe(0);
+        });
     });
 })
