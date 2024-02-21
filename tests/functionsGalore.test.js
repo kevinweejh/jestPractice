@@ -1,4 +1,4 @@
-import { capitalise, reverseString, calculator } from '../src/functionsGalore.js';
+import { capitalise, reverseString, calculator, caesarCipher } from '../src/functionsGalore.js';
 
 describe('capitalise function tests', () => {
     describe('type checking', () => {
@@ -104,5 +104,47 @@ describe('calculate function tests', () => {
 
             expect(calculator.multiply(firstNum, secondNum)).toBe(25);
         });
+    });
+})
+
+describe('caesarCipher function tests', () => {
+    const shiftFactor = 5;
+    describe('type checking', () => {
+        it('only accepts string input', () => {
+            const stringInput = 'hi!';
+            const numberInput = 1;
+            const arrayInput = ['yo', 'hello', 'bonjour'];
+
+            expect(() => caesarCipher(stringInput, shiftFactor)).not.toThrow();
+            expect(() => caesarCipher(numberInput, shiftFactor)).toThrow();
+            expect(() => caesarCipher(arrayInput, shiftFactor)).toThrow();
+        });
+        it('returns string output', () => {
+            const stringInput = 'hello';
+
+            expect(typeof caesarCipher(stringInput, shiftFactor)).toBe('string');
+        });
+    });
+
+    describe('function behaviour checking', () => {
+        it('handles empty input correctly', () => {
+            const emptyStringInput = '';
+            expect(() => caesarCipher(emptyStringInput, shiftFactor)).toThrow('non-empty');
+        })
+        it('handles words that wrap from z to a', () => {
+            const wrappedInput = 'zapdos';
+
+            expect(caesarCipher(wrappedInput, shiftFactor)).toBe('efuitx');
+        });
+        it('handles words with mixed case', () => {
+            const mixedCaseInput = 'ZapDos';
+            
+            expect(caesarCipher(mixedCaseInput, shiftFactor)).toBe('EfuItx');
+        });
+        it('leave punctuations unchanged', () => {
+            const punctuatedInput = '.zapdos!';
+
+            expect(caesarCipher(punctuatedInput, shiftFactor)).toBe('.efuitx!');
+        })
     });
 })
