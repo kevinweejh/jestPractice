@@ -1,4 +1,4 @@
-import capitalise from '../src/functionsGalore.js';
+import { capitalise, reverseString } from '../src/functionsGalore.js';
 
 describe('capitalise function tests', () => {
     describe('type checking', () => {
@@ -25,6 +25,35 @@ describe('capitalise function tests', () => {
         it('handles capitalised input correctly', () => {
             const stringInput = 'Yo!!';
             expect(capitalise(stringInput)).toBe('Yo!!');
+        })
+    });
+})
+
+describe('reverseString function tests', () => {
+    describe('type checking', () => {
+        it('only accepts string input', () => {
+            const stringInput = 'hi!';
+            const numberInput = 1;
+            const arrayInput = ['yo', 'hello', 'bonjour'];
+
+            expect(() => reverseString(stringInput)).not.toThrow();
+            expect(() => reverseString(numberInput)).toThrow();
+            expect(() => reverseString(arrayInput)).toThrow();
+        });
+        it('returns string output', () => {
+            const stringInput = 'hi!';
+            expect(typeof reverseString(stringInput)).toBe('string');
+        });
+    });
+
+    describe('function behaviour checking', () => {
+        it('handles non-empty input correctly', () => {
+            const nonEmptyInput = 'hi!';
+            expect(reverseString(nonEmptyInput)).toBe('!ih');
+        });
+        it('handles empty input correctly', () => {
+            const emptyStringInput = '';
+            expect(() => reverseString(emptyStringInput)).toThrow();
         })
     });
 })
