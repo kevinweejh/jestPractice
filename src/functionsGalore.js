@@ -54,5 +54,17 @@ export const calculator = {
         }
 
         return firstNum - secondNum;
-    }
+    },
+    divide(firstNum, secondNum) {
+        if (arguments.length !== 2) {
+            throw Error('Incorrect number of inputs, please provide exactly two.');
+            return;
+        }
+        if (typeof firstNum !== 'number' || typeof secondNum !== 'number') {
+            throw Error('Incorrect input type, please provide number inputs.');
+            return
+        }
+
+        return firstNum / secondNum;
+    }, 
 }
