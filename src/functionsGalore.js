@@ -117,3 +117,31 @@ const shiftChar = (plainChar, shiftFactor) => {
 
     return cypherChar;
 }
+
+export const analyzeArray = (input) => {
+    if (!Array.isArray(input)) {
+        throw Error('Please provide an array.');
+    };
+
+    if (input.some((arrItem) => typeof arrItem !== 'number')) {
+        throw Error('Please provide only number value(s) in the array.');
+    };
+    
+    if (input.length === 0) {
+        throw Error('Please provide a non-empty array.');
+    };
+
+    let sum = input.reduce((accum, curr) => accum + curr, 0);
+    let min = input.reduce((accum, curr) => Math.min(accum, curr));
+    let max = input.reduce((accum, curr) => Math.max(accum, curr));
+    let length = input.length;
+    
+    let average = isNaN(sum/length) ? 0 : (sum/length);
+
+    return {
+        "average": average,
+        "min": min,
+        "max": max,
+        "length": length 
+    }
+}
