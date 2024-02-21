@@ -1,4 +1,4 @@
-import { capitalise } from '../src/functionsGalore.js';
+import capitalise from '../src/functionsGalore.js';
 
 describe('capitalise function tests', () => {
     describe('type checking', () => {
@@ -7,9 +7,9 @@ describe('capitalise function tests', () => {
             const numberInput = 1;
             const arrayInput = ['yo', 'hello', 'bonjour'];
 
-            expect(capitalise(stringInput)).not.toThrow();
-            expect(capitalise(numberInput)).toThrow();
-            expect(capitalise(arrayInput)).toThrow();
+            expect(() => capitalise(stringInput)).not.toThrow();
+            expect(() => capitalise(numberInput)).toThrow();
+            expect(() => capitalise(arrayInput)).toThrow();
         });
         it('returns string output', () => {
             const stringInput = 'hi!';
