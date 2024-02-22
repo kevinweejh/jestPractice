@@ -20,6 +20,9 @@ Each function is tested for:
 - Correct handling of normal and edge cases.
 - Expected output validation.
 
+_Note: The testing methodology abides the principle of 'Testing the interface, not the implementation'. 
+This approach promotes more robust and maintainable tests by decoupling them from the specific details of how the code achieves its results._
+
 ### Usage
 To run the tests, clone the repository and install the dependencies. Then, as shown below, either 
 - run `npm test` to run the tests once through, or
